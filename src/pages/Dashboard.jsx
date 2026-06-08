@@ -9,14 +9,14 @@ import {
   ThumbsUp, Scale, MessageSquare, ClipboardEdit,
   Trophy, Star, Camera, PenLine,
   Rss, HelpCircle,
-  ChevronRight, Menu, X, Download, Eye,
-  Hash, MapPin, Mail, Shield, Clock,
-  BarChart2, Layers, Calendar, ExternalLink,
-  Award, AlertCircle
+  ChevronRight, ChevronDown, Menu, X,
+  Download, Eye, Hash, MapPin, Mail,
+  Shield, Clock, Layers, Calendar,
+  ExternalLink, Award, AlertCircle
 } from 'lucide-react';
 
 /* ══════════════════════════════════════════════════
-   NAV STRUCTURE
+   NAV STRUCTURE — all groups start COLLAPSED
 ══════════════════════════════════════════════════ */
 const NAV_GROUPS = [
   {
@@ -32,94 +32,94 @@ const NAV_GROUPS = [
     id: 'account',
     label: 'My Account',
     items: [
-      { id: 'profile',          label: 'My Profile',        icon: <User size={15} /> },
-      { id: 'registration',     label: 'Registration Card', icon: <CreditCard size={15} /> },
-      { id: 'otv',              label: 'OTR Certificate',   icon: <FileCheck size={15} /> },
-      { id: 'change-password',  label: 'Change Password',   icon: <KeyRound size={15} /> },
+      { id: 'profile',         label: 'My Profile',        icon: <User size={15} /> },
+      { id: 'registration',    label: 'Registration Card', icon: <CreditCard size={15} /> },
+      { id: 'otv',             label: 'OTR Certificate',   icon: <FileCheck size={15} /> },
+      { id: 'change-password', label: 'Change Password',   icon: <KeyRound size={15} /> },
     ],
   },
   {
     id: 'services',
     label: 'Services',
     items: [
-      { id: 'notifications',   label: 'Notifications',          icon: <Bell size={15} /> },
-      { id: 'my-application',  label: 'My Application',         icon: <FileText size={15} /> },
-      { id: 'admission-ticket',label: 'Admission Ticket',        icon: <Ticket size={15} /> },
-      { id: 'announcements',   label: 'Announcements',           icon: <Megaphone size={15} /> },
-      { id: 'confirmation',    label: 'Confirmation for Exams',  icon: <CalendarCheck size={15} />, external: true },
-      { id: 'willingness',     label: 'Willingness for Appointment', icon: <ThumbsUp size={15} /> },
-      { id: 'affidavit',       label: 'File Affidavit',          icon: <Scale size={15} /> },
-      { id: 'profile-messages',label: 'Profile Messages',        icon: <MessageSquare size={15} /> },
-      { id: 'answer-key',      label: 'Answer Key Complaint',    icon: <ClipboardEdit size={15} /> },
-      { id: 'results',         label: 'My Results',              icon: <Trophy size={15} /> },
-      { id: 'feedback',        label: 'Feedback',                icon: <Star size={15} /> },
-      { id: 'photograph',      label: 'Photograph',              icon: <Camera size={15} /> },
-      { id: 'signature',       label: 'Signature',               icon: <PenLine size={15} /> },
+      { id: 'notifications',    label: 'Notifications',               icon: <Bell size={15} /> },
+      { id: 'my-application',   label: 'My Application',              icon: <FileText size={15} /> },
+      { id: 'admission-ticket', label: 'Admission Ticket',            icon: <Ticket size={15} /> },
+      { id: 'announcements',    label: 'Announcements',               icon: <Megaphone size={15} /> },
+      { id: 'confirmation',     label: 'Confirmation for Exams',      icon: <CalendarCheck size={15} />, external: true },
+      { id: 'willingness',      label: 'Willingness for Appointment', icon: <ThumbsUp size={15} /> },
+      { id: 'affidavit',        label: 'File Affidavit',              icon: <Scale size={15} /> },
+      { id: 'profile-messages', label: 'Profile Messages',            icon: <MessageSquare size={15} /> },
+      { id: 'answer-key',       label: 'Answer Key Complaint',        icon: <ClipboardEdit size={15} /> },
+      { id: 'results',          label: 'My Results',                  icon: <Trophy size={15} /> },
+      { id: 'feedback',         label: 'Feedback',                    icon: <Star size={15} /> },
+      { id: 'photograph',       label: 'Photograph',                  icon: <Camera size={15} /> },
+      { id: 'signature',        label: 'Signature',                   icon: <PenLine size={15} /> },
     ],
   },
   {
     id: 'info',
     label: 'Information',
     items: [
-      { id: 'bulletin', label: 'Bulletin Subscription', icon: <Rss size={15} />, external: true },
-      { id: 'faq',      label: 'Frequently Asked Questions', icon: <HelpCircle size={15} /> },
+      { id: 'bulletin', label: 'Bulletin Subscription',       icon: <Rss size={15} />, external: true },
+      { id: 'faq',      label: 'Frequently Asked Questions',  icon: <HelpCircle size={15} /> },
     ],
   },
 ];
 
 /* ══════════════════════════════════════════════════
-   DUMMY DATA
-══════════════════════════════════════════════════ */
-const APPLICATIONS = [
-  { id: 'APP-2024-7741', post: 'Secretariat Assistant',    dept: 'Kerala Secretariat',          applied: '12-Mar-2024', exam: '20-Jul-2026', status: 'shortlist', label: 'Shortlisted' },
-  { id: 'APP-2024-5523', post: 'Lower Division Clerk (LDC)', dept: 'Revenue Dept – TVM',        applied: '05-Jan-2024', exam: '14-Sep-2026', status: 'applied',   label: 'Applied'     },
-  { id: 'APP-2023-9912', post: 'Village Field Assistant',  dept: 'Agriculture Department',      applied: '18-Nov-2023', exam: 'Result Awaited', status: 'pending', label: 'Pending'     },
-  { id: 'APP-2023-4401', post: 'University Assistant',     dept: 'Kerala University',           applied: '02-Aug-2023', exam: '—',            status: 'rejected', label: 'Not Selected'},
-];
-
-const NOTIFICATIONS = [
-  { id: 1, icon: <Award size={15} />,      color: 'green', title: 'Shortlist Published – Secretariat Assistant', desc: 'You have been shortlisted for Main Exam (Cat. 235/2023).', time: '2 hours ago',  unread: true  },
-  { id: 2, icon: <Ticket size={15} />,     color: 'blue',  title: 'Hall Ticket Available',                        desc: 'Admit card for Degree Level Prelims (20-Jul-2026) ready.', time: '1 day ago',   unread: true  },
-  { id: 3, icon: <AlertCircle size={15} />,color: 'amber', title: 'Profile Update Reminder',                      desc: 'Upload updated community certificate before 30-Jun-2026.',  time: '3 days ago',  unread: false },
-  { id: 4, icon: <FileText size={15} />,   color: 'blue',  title: 'New Notification: HSST English',               desc: 'Cat. No. 112/2026 – Apply by 15-Jul-2026.',                time: '5 days ago',  unread: false },
-];
-
-const UPCOMING_EXAMS = [
-  { day: '20', month: 'Jul', name: 'Degree Level Preliminary Exam', meta: '10:00 AM · District Centre, TVM',      badge: 'Confirmed'   },
-  { day: '14', month: 'Sep', name: 'LDC Main Written Exam',         meta: '02:00 PM · Govt School, Pattom',       badge: 'Registered'  },
-  { day: '08', month: 'Nov', name: 'Secretariat Asst. Main Exam',   meta: 'Venue TBA',                             badge: 'Shortlisted' },
-];
-
-/* ══════════════════════════════════════════════════
-   PAGE TITLE MAP
+   PAGE META
 ══════════════════════════════════════════════════ */
 const PAGE_META = {
-  home:             { title: 'Dashboard',                  subtitle: 'Welcome to your KPSC Thulasi portal' },
-  contact:          { title: 'Contact Us',                 subtitle: 'Get in touch with KPSC offices' },
-  sitemap:          { title: 'Site Map',                   subtitle: 'Navigate the Thulasi portal' },
-  profile:          { title: 'My Profile',                 subtitle: 'View and update your personal details' },
-  registration:     { title: 'Registration Card',          subtitle: 'Download your OTR registration card' },
-  otv:              { title: 'OTR Certificate',            subtitle: 'Download your One-Time Registration certificate' },
-  'change-password':{ title: 'Change Password',            subtitle: 'Update your account password securely' },
-  notifications:    { title: 'Notifications',              subtitle: 'All alerts and updates for your account' },
-  'my-application': { title: 'My Applications',            subtitle: 'Track all your submitted applications' },
-  'admission-ticket':{ title: 'Admission Ticket',          subtitle: 'Download your hall tickets' },
-  announcements:    { title: 'Announcements',              subtitle: 'Official announcements from KPSC' },
-  confirmation:     { title: 'Confirmation for Exams',     subtitle: 'Confirm your exam participation' },
-  willingness:      { title: 'Willingness for Appointment',subtitle: 'Indicate your willingness for appointment' },
-  affidavit:        { title: 'File Affidavit',             subtitle: 'Submit your affidavit online' },
-  'profile-messages':{ title: 'Profile Messages',          subtitle: 'Messages related to your profile' },
-  'answer-key':     { title: 'Answer Key Complaint',       subtitle: 'Raise objections on published answer keys' },
-  results:          { title: 'My Results',                 subtitle: 'View your examination scores and results' },
-  feedback:         { title: 'Feedback',                   subtitle: 'Share your experience with KPSC' },
-  photograph:       { title: 'Photograph',                 subtitle: 'Upload or update your profile photograph' },
-  signature:        { title: 'Signature',                  subtitle: 'Upload or update your digital signature' },
-  bulletin:         { title: 'Bulletin Subscription',      subtitle: 'Subscribe to KPSC bulletins and newsletters' },
-  faq:              { title: 'Frequently Asked Questions', subtitle: 'Answers to common queries' },
+  home:              { title: 'Dashboard',                   subtitle: 'Welcome to your KPSC Thulasi portal' },
+  contact:           { title: 'Contact Us',                  subtitle: 'Get in touch with KPSC offices' },
+  sitemap:           { title: 'Site Map',                    subtitle: 'Navigate the Thulasi portal' },
+  profile:           { title: 'My Profile',                  subtitle: 'View and update your personal details' },
+  registration:      { title: 'Registration Card',           subtitle: 'Download your OTR registration card' },
+  otv:               { title: 'OTR Certificate',             subtitle: 'Download your One-Time Registration certificate' },
+  'change-password': { title: 'Change Password',             subtitle: 'Update your account password securely' },
+  notifications:     { title: 'Notifications',               subtitle: 'All alerts and updates for your account' },
+  'my-application':  { title: 'My Applications',             subtitle: 'Track all your submitted applications' },
+  'admission-ticket':{ title: 'Admission Ticket',            subtitle: 'Download your hall tickets' },
+  announcements:     { title: 'Announcements',               subtitle: 'Official announcements from KPSC' },
+  confirmation:      { title: 'Confirmation for Exams',      subtitle: 'Confirm your exam participation' },
+  willingness:       { title: 'Willingness for Appointment', subtitle: 'Indicate your willingness for appointment' },
+  affidavit:         { title: 'File Affidavit',              subtitle: 'Submit your affidavit online' },
+  'profile-messages':{ title: 'Profile Messages',            subtitle: 'Messages related to your profile' },
+  'answer-key':      { title: 'Answer Key Complaint',        subtitle: 'Raise objections on published answer keys' },
+  results:           { title: 'My Results',                  subtitle: 'View your examination scores and results' },
+  feedback:          { title: 'Feedback',                    subtitle: 'Share your experience with KPSC' },
+  photograph:        { title: 'Photograph',                  subtitle: 'Upload or update your profile photograph' },
+  signature:         { title: 'Signature',                   subtitle: 'Upload or update your digital signature' },
+  bulletin:          { title: 'Bulletin Subscription',       subtitle: 'Subscribe to KPSC bulletins' },
+  faq:               { title: 'Frequently Asked Questions',  subtitle: 'Answers to common queries' },
 };
 
 /* ══════════════════════════════════════════════════
-   SUB-COMPONENTS
+   DUMMY DATA
+══════════════════════════════════════════════════ */
+const APPLICATIONS = [
+  { id: 'APP-2024-7741', post: 'Secretariat Assistant',      dept: 'Kerala Secretariat',     applied: '12-Mar-2024', exam: '20-Jul-2026',    status: 'shortlist', label: 'Shortlisted'  },
+  { id: 'APP-2024-5523', post: 'Lower Division Clerk (LDC)', dept: 'Revenue Dept – TVM',     applied: '05-Jan-2024', exam: '14-Sep-2026',    status: 'applied',   label: 'Applied'      },
+  { id: 'APP-2023-9912', post: 'Village Field Assistant',    dept: 'Agriculture Department', applied: '18-Nov-2023', exam: 'Result Awaited', status: 'pending',   label: 'Pending'      },
+  { id: 'APP-2023-4401', post: 'University Assistant',       dept: 'Kerala University',      applied: '02-Aug-2023', exam: '—',              status: 'rejected',  label: 'Not Selected' },
+];
+
+const NOTIFICATIONS = [
+  { id: 1, icon: <Award size={15} />,       color: 'green', title: 'Shortlist Published – Secretariat Assistant', desc: 'You have been shortlisted for Main Exam (Cat. 235/2023).', time: '2 hours ago', unread: true  },
+  { id: 2, icon: <Ticket size={15} />,      color: 'blue',  title: 'Hall Ticket Available',                        desc: 'Admit card for Degree Level Prelims (20-Jul-2026) ready.', time: '1 day ago',  unread: true  },
+  { id: 3, icon: <AlertCircle size={15} />, color: 'amber', title: 'Profile Update Reminder',                      desc: 'Upload updated community certificate before 30-Jun-2026.', time: '3 days ago', unread: false },
+  { id: 4, icon: <FileText size={15} />,    color: 'blue',  title: 'New Notification: HSST English',               desc: 'Cat. No. 112/2026 – Apply by 15-Jul-2026.', time: '5 days ago',                   unread: false },
+];
+
+const UPCOMING_EXAMS = [
+  { day: '20', month: 'Jul', name: 'Degree Level Preliminary Exam', meta: '10:00 AM · District Centre, TVM',  badge: 'Confirmed'   },
+  { day: '14', month: 'Sep', name: 'LDC Main Written Exam',         meta: '02:00 PM · Govt School, Pattom',   badge: 'Registered'  },
+  { day: '08', month: 'Nov', name: 'Secretariat Asst. Main Exam',   meta: 'Venue TBA',                         badge: 'Shortlisted' },
+];
+
+/* ══════════════════════════════════════════════════
+   HELPER COMPONENTS
 ══════════════════════════════════════════════════ */
 function StatusPill({ status, label }) {
   return (
@@ -129,8 +129,29 @@ function StatusPill({ status, label }) {
   );
 }
 
+function DesignationBadge({ label, dark }) {
+  return (
+    <span style={{
+      fontSize: dark ? '0.6rem' : '0.68rem',
+      fontWeight: 700,
+      padding: '0.1rem 0.48rem',
+      background: dark ? 'rgba(0,122,209,.28)' : 'var(--brand-primary-lt)',
+      color: dark ? '#60A5FA' : 'var(--brand-primary)',
+      borderRadius: '4px',
+      letterSpacing: '0.05em',
+      textTransform: 'uppercase',
+      flexShrink: 0,
+    }}>
+      {label}
+    </span>
+  );
+}
+
+/* ══════════════════════════════════════════════════
+   PLACEHOLDER PAGE
+══════════════════════════════════════════════════ */
 function PlaceholderPage({ pageId }) {
-  const meta = PAGE_META[pageId] || { title: pageId, subtitle: '' };
+  const meta = PAGE_META[pageId] || { title: pageId };
   const iconMap = {
     contact: <Phone size={28} />, sitemap: <Map size={28} />, registration: <CreditCard size={28} />,
     otv: <FileCheck size={28} />, 'change-password': <KeyRound size={28} />, notifications: <Bell size={28} />,
@@ -141,22 +162,22 @@ function PlaceholderPage({ pageId }) {
     results: <Trophy size={28} />, feedback: <Star size={28} />, photograph: <Camera size={28} />,
     signature: <PenLine size={28} />, bulletin: <Rss size={28} />, faq: <HelpCircle size={28} />,
   };
-
   return (
     <div className="section-card">
       <div className="placeholder-page">
-        <div className="placeholder-icon">
-          {iconMap[pageId] || <FileText size={28} />}
-        </div>
+        <div className="placeholder-icon">{iconMap[pageId] || <FileText size={28} />}</div>
         <div className="placeholder-title">{meta.title}</div>
         <p className="placeholder-desc">
           This section is part of the Kerala PSC Thulasi portal. Full functionality will be
-          available in subsequent releases. Please visit the official portal for live data.
+          available in subsequent releases. Visit the official portal for live data.
         </p>
-        <a href="https://thulasi.psc.kerala.gov.in" target="_blank" rel="noopener noreferrer"
-          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', padding: '0.6rem 1.25rem',
-            background: 'var(--brand-primary)', color: '#fff', borderRadius: 'var(--r-md)',
-            fontSize: '0.84rem', fontWeight: 700, textDecoration: 'none', marginTop: '0.25rem' }}>
+        <a
+          href="https://thulasi.psc.kerala.gov.in"
+          target="_blank" rel="noopener noreferrer"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+            padding: '0.6rem 1.25rem', background: 'var(--brand-primary)', color: '#fff',
+            borderRadius: 'var(--r-md)', fontSize: '0.84rem', fontWeight: 700,
+            textDecoration: 'none', marginTop: '0.25rem' }}>
           <ExternalLink size={14} /> Open Official Portal
         </a>
       </div>
@@ -164,6 +185,9 @@ function PlaceholderPage({ pageId }) {
   );
 }
 
+/* ══════════════════════════════════════════════════
+   PROFILE PAGE
+══════════════════════════════════════════════════ */
 function ProfilePage({ user }) {
   const initials = user.name.split(' ').map(n => n[0]).join('').slice(0, 2);
   return (
@@ -172,32 +196,27 @@ function ProfilePage({ user }) {
         <div className="profile-q-avatar">{initials}</div>
         <div className="profile-q-name">{user.name}</div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <span style={{
-            background: 'var(--brand-primary-lt)',
-            color: 'var(--brand-primary)',
-            fontSize: '0.68rem',
-            fontWeight: 700,
-            padding: '0.15rem 0.55rem',
-            borderRadius: '4px',
-            letterSpacing: '0.04em',
-          }}>{user.designation}</span>
+          <DesignationBadge label={user.designation} />
           <div className="profile-q-reg">{user.registrationNo}</div>
         </div>
-        <div className="profile-q-badge"><span style={{width:6,height:6,borderRadius:'50%',background:'#16A34A',display:'inline-block'}}/>OTR Verified</div>
+        <div className="profile-q-badge">
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#16A34A', display: 'inline-block' }} />
+          OTR Verified
+        </div>
       </div>
       <div className="profile-detail-list">
         {[
-          { icon: <MapPin size={13} />, label: 'District',    val: user.district },
-          { icon: <Mail size={13} />,   label: 'Email',       val: user.email },
-          { icon: <Phone size={13} />,  label: 'Mobile',      val: '+91 ' + user.mobile },
-          { icon: <Shield size={13} />, label: 'Category',    val: user.category },
-          { icon: <User size={13} />,   label: 'Date of Birth',val: user.dob },
-          { icon: <Clock size={13} />,  label: 'Last Login',  val: user.lastLogin },
+          { icon: <MapPin size={13} />, label: 'District',      val: user.district },
+          { icon: <Mail size={13} />,   label: 'Email',         val: user.email },
+          { icon: <Phone size={13} />,  label: 'Mobile',        val: '+91 ' + user.mobile },
+          { icon: <Shield size={13} />, label: 'Category',      val: user.category },
+          { icon: <User size={13} />,   label: 'Date of Birth', val: user.dob },
+          { icon: <Clock size={13} />,  label: 'Last Login',    val: user.lastLogin },
         ].map(r => (
           <div className="profile-detail-row" key={r.label}>
             <span className="profile-detail-icon">{r.icon}</span>
             <span className="profile-detail-label">{r.label}</span>
-            <span className="profile-detail-val" style={{ wordBreak: 'break-all' }}>{r.val}</span>
+            <span className="profile-detail-val">{r.val}</span>
           </div>
         ))}
       </div>
@@ -205,33 +224,32 @@ function ProfilePage({ user }) {
   );
 }
 
+/* ══════════════════════════════════════════════════
+   HOME PAGE
+══════════════════════════════════════════════════ */
 function HomePage({ user, setActivePage }) {
   const initials = user.name.split(' ').map(n => n[0]).join('').slice(0, 2);
   const unread   = NOTIFICATIONS.filter(n => n.unread).length;
+
   return (
     <>
       {/* Welcome Banner */}
       <div className="welcome-banner">
         <div className="welcome-text">
           <div className="welcome-greeting">Welcome back</div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-            <div className="welcome-name" style={{ marginBottom: 0 }}>{user.name}</div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <div className="welcome-name">{user.name}</div>
             <span style={{
-              background: 'rgba(255,255,255,.18)',
-              color: '#fff',
-              fontSize: '0.72rem',
-              fontWeight: 700,
-              padding: '0.25rem 0.75rem',
-              borderRadius: 'var(--r-full)',
-              letterSpacing: '0.06em',
-              textTransform: 'uppercase',
-              border: '1px solid rgba(255,255,255,.25)',
+              background: 'rgba(255,255,255,.18)', color: '#fff',
+              fontSize: '0.7rem', fontWeight: 700, padding: '0.22rem 0.72rem',
+              borderRadius: 'var(--r-full)', letterSpacing: '0.07em',
+              textTransform: 'uppercase', border: '1px solid rgba(255,255,255,.25)',
             }}>{user.designation}</span>
           </div>
           <div className="welcome-tags">
-            <span className="welcome-tag"><Hash size={11} /> {user.registrationNo}</span>
-            <span className="welcome-tag"><MapPin size={11} /> {user.district}</span>
-            <span className="welcome-tag"><Shield size={11} /> {user.category}</span>
+            <span className="welcome-tag"><Hash size={10} /> {user.registrationNo}</span>
+            <span className="welcome-tag"><MapPin size={10} /> {user.district}</span>
+            <span className="welcome-tag"><Shield size={10} /> {user.category}</span>
           </div>
         </div>
         <div className="welcome-actions">
@@ -282,9 +300,8 @@ function HomePage({ user, setActivePage }) {
 
       {/* Grid */}
       <div className="dash-grid">
-        {/* Left Col */}
+        {/* Left */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
           {/* Applications */}
           <div className="section-card">
             <div className="section-card-header">
@@ -307,8 +324,11 @@ function HomePage({ user, setActivePage }) {
                 <tbody>
                   {APPLICATIONS.map(a => (
                     <tr key={a.id}>
-                      <td><div className="app-post-name">{a.post}</div><div className="app-dept">{a.dept}</div></td>
-                      <td style={{ fontFamily: 'monospace', fontSize: '0.75rem' }}>{a.id}</td>
+                      <td>
+                        <div className="app-post-name">{a.post}</div>
+                        <div className="app-dept">{a.dept}</div>
+                      </td>
+                      <td style={{ fontFamily: 'monospace', fontSize: '0.73rem' }}>{a.id}</td>
                       <td>{a.applied}</td>
                       <td>{a.exam}</td>
                       <td><StatusPill status={a.status} label={a.label} /></td>
@@ -343,9 +363,8 @@ function HomePage({ user, setActivePage }) {
           </div>
         </div>
 
-        {/* Right Col */}
+        {/* Right */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-
           {/* Profile Card */}
           <div className="section-card">
             <div className="section-card-header">
@@ -358,38 +377,26 @@ function HomePage({ user, setActivePage }) {
               <div className="profile-q-avatar">{initials}</div>
               <div className="profile-q-name">{user.name}</div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <span style={{
-                  background: 'var(--brand-primary-lt)',
-                  color: 'var(--brand-primary)',
-                  fontSize: '0.68rem',
-                  fontWeight: 700,
-                  padding: '0.15rem 0.55rem',
-                  borderRadius: '4px',
-                  letterSpacing: '0.04em',
-                }}>{user.designation}</span>
+                <DesignationBadge label={user.designation} />
                 <div className="profile-q-reg">{user.registrationNo}</div>
               </div>
               <div className="profile-q-badge">
-                <span style={{width:6,height:6,borderRadius:'50%',background:'#16A34A',display:'inline-block'}}/>
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#16A34A', display: 'inline-block' }} />
                 OTR Verified
               </div>
             </div>
             <div className="profile-detail-list">
-              <div className="profile-detail-row">
-                <span className="profile-detail-icon"><MapPin size={13} /></span>
-                <span className="profile-detail-label">District</span>
-                <span className="profile-detail-val">{user.district}</span>
-              </div>
-              <div className="profile-detail-row">
-                <span className="profile-detail-icon"><Shield size={13} /></span>
-                <span className="profile-detail-label">Category</span>
-                <span className="profile-detail-val">{user.category}</span>
-              </div>
-              <div className="profile-detail-row">
-                <span className="profile-detail-icon"><Clock size={13} /></span>
-                <span className="profile-detail-label">Last Login</span>
-                <span className="profile-detail-val" style={{ fontSize: '0.73rem' }}>{user.lastLogin}</span>
-              </div>
+              {[
+                { icon: <MapPin size={13} />, label: 'District',   val: user.district },
+                { icon: <Shield size={13} />, label: 'Category',   val: user.category },
+                { icon: <Clock size={13} />,  label: 'Last Login', val: user.lastLogin },
+              ].map(r => (
+                <div className="profile-detail-row" key={r.label}>
+                  <span className="profile-detail-icon">{r.icon}</span>
+                  <span className="profile-detail-label">{r.label}</span>
+                  <span className="profile-detail-val" style={{ fontSize: '0.73rem' }}>{r.val}</span>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -419,35 +426,47 @@ function HomePage({ user, setActivePage }) {
 }
 
 /* ══════════════════════════════════════════════════
-   SIDEBAR COMPONENT
+   SIDEBAR — hidden by default, all collapsed
 ══════════════════════════════════════════════════ */
 function Sidebar({ activePage, setActivePage, user, onLogout, open, onClose }) {
-  const [collapsed, setCollapsed] = useState({});
+  // All groups start collapsed (empty object = nothing expanded)
+  const [expanded, setExpanded] = useState({});
   const initials = user.name.split(' ').map(n => n[0]).join('').slice(0, 2);
 
-  const toggle = (groupId) =>
-    setCollapsed(prev => ({ ...prev, [groupId]: !prev[groupId] }));
+  const toggleGroup = (id) =>
+    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
 
   const handleNav = (pageId) => {
     setActivePage(pageId);
-    onClose();
+    onClose();                     // close sidebar on nav
   };
 
   return (
     <>
-      {/* Mobile overlay */}
-      <div className={`sidebar-overlay ${open ? 'visible' : ''}`} onClick={onClose} />
+      {/* Backdrop */}
+      <div
+        className={`sidebar-overlay ${open ? 'visible' : ''}`}
+        onClick={onClose}
+        aria-hidden="true"
+      />
 
-      <aside className={`dash-sidebar ${open ? 'open' : ''}`}>
-        {/* Brand */}
-        <div className="sidebar-brand">
-          <div className="sidebar-logo">
-            <img src="/kerala_psc_logo.webp" alt="KPSC Logo" />
+      {/* Panel */}
+      <aside className={`dash-sidebar ${open ? 'open' : ''}`} aria-label="Main navigation">
+
+        {/* Header */}
+        <div className="sidebar-header">
+          <div className="sidebar-brand">
+            <div className="sidebar-logo">
+              <img src="/kerala_psc_logo.webp" alt="KPSC Logo" />
+            </div>
+            <div className="sidebar-brand-text">
+              <span className="sidebar-brand-title">Kerala PSC</span>
+              <span className="sidebar-brand-sub">Thulasi Portal</span>
+            </div>
           </div>
-          <div className="sidebar-brand-text">
-            <span className="sidebar-brand-title">Kerala PSC</span>
-            <span className="sidebar-brand-sub">Thulasi Portal</span>
-          </div>
+          <button className="sidebar-close-btn" onClick={onClose} aria-label="Close menu">
+            <X size={16} />
+          </button>
         </div>
 
         {/* User Chip */}
@@ -455,71 +474,68 @@ function Sidebar({ activePage, setActivePage, user, onLogout, open, onClose }) {
           <div className="sidebar-avatar">{initials}</div>
           <div className="sidebar-user-info">
             <div className="sidebar-user-name">{user.name}</div>
-            <div className="sidebar-user-reg" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
-              <span style={{
-                background: 'rgba(0,122,209,.35)',
-                color: '#60A5FA',
-                fontSize: '0.6rem',
-                fontWeight: 700,
-                padding: '0.1rem 0.45rem',
-                borderRadius: '3px',
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase',
-              }}>{user.designation}</span>
-              <span style={{ opacity: 0.45, fontSize: '0.65rem' }}>{user.registrationNo}</span>
+            <div className="sidebar-user-meta">
+              <DesignationBadge label={user.designation} />
             </div>
+            <div className="sidebar-user-reg">{user.registrationNo}</div>
           </div>
-          <div className="sidebar-user-status">
-            <span className="sidebar-status-dot" />
-          </div>
+          <div className="sidebar-online-dot" title="Online" />
         </div>
 
-        {/* Nav */}
+        {/* Nav Groups */}
         <nav className="sidebar-nav">
-          {NAV_GROUPS.map((group, gi) => (
-            <div className="nav-group" key={group.id}>
-              {gi > 0 && <div className="nav-separator" />}
+          {NAV_GROUPS.map((group) => {
+            const isExpanded = !!expanded[group.id];
+            const maxH = `${group.items.length * 44}px`;
 
-              {/* Group label (collapsible) */}
-              <button
-                className={`nav-group-label ${!collapsed[group.id] ? 'open' : ''}`}
-                onClick={() => toggle(group.id)}
-              >
-                <ChevronRight size={11} />
-                <span className="nav-group-label-text">{group.label}</span>
-              </button>
+            return (
+              <div className="nav-group" key={group.id}>
+                {/* Group header — click to expand/collapse */}
+                <button
+                  className="nav-group-label"
+                  onClick={() => toggleGroup(group.id)}
+                  aria-expanded={isExpanded}
+                >
+                  {group.label}
+                  <span className={`nav-group-chevron ${isExpanded ? 'open' : ''}`}>
+                    <ChevronDown size={13} />
+                  </span>
+                </button>
 
-              {/* Group items */}
-              <div
-                className={`nav-group-items ${collapsed[group.id] ? 'collapsed' : ''}`}
-                style={{ maxHeight: collapsed[group.id] ? '0' : `${group.items.length * 44}px` }}
-              >
-                {group.items.map(item => (
-                  <button
-                    key={item.id}
-                    className={`nav-item ${activePage === item.id ? 'active' : ''}`}
-                    onClick={() => handleNav(item.id)}
-                  >
-                    {item.icon}
-                    <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
-                    {item.external && (
-                      <span className="nav-badge-ext">
-                        <ExternalLink size={8} /> EXT
-                      </span>
-                    )}
-                  </button>
-                ))}
+                {/* Items — accordion */}
+                <div
+                  className={`nav-group-items ${isExpanded ? 'expanded' : ''}`}
+                  style={{ maxHeight: isExpanded ? maxH : '0' }}
+                >
+                  {group.items.map(item => (
+                    <button
+                      key={item.id}
+                      className={`nav-item ${activePage === item.id ? 'active' : ''}`}
+                      onClick={() => handleNav(item.id)}
+                    >
+                      {item.icon}
+                      <span style={{ flex: 1, textAlign: 'left' }}>{item.label}</span>
+                      {item.external && (
+                        <span className="nav-badge-ext">
+                          <ExternalLink size={8} /> EXT
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="nav-separator" />
               </div>
-            </div>
-          ))}
-
-          <div className="nav-separator" />
+            );
+          })}
 
           {/* Logout */}
-          <button className="nav-item danger" onClick={onLogout}>
-            <LogOut size={15} />
-            <span>Logout</span>
-          </button>
+          <div className="sidebar-footer">
+            <button className="nav-item danger" onClick={onLogout}>
+              <LogOut size={15} />
+              <span>Logout</span>
+            </button>
+          </div>
         </nav>
       </aside>
     </>
@@ -527,34 +543,40 @@ function Sidebar({ activePage, setActivePage, user, onLogout, open, onClose }) {
 }
 
 /* ══════════════════════════════════════════════════
-   TOPBAR COMPONENT
+   TOPBAR
 ══════════════════════════════════════════════════ */
 function TopBar({ activePage, user, onLogout, onToggleSidebar }) {
   const [dropOpen, setDropOpen] = useState(false);
-  const meta    = PAGE_META[activePage] || { title: activePage };
+  const meta     = PAGE_META[activePage] || { title: activePage };
   const initials = user.name.split(' ').map(n => n[0]).join('').slice(0, 2);
-  const unread  = NOTIFICATIONS.filter(n => n.unread).length;
+  const unread   = NOTIFICATIONS.filter(n => n.unread).length;
 
   return (
     <div className="dash-topbar">
       <div className="dash-topbar-inner">
         <div className="dash-topbar-left">
-          <button className="dash-sidebar-toggle" onClick={onToggleSidebar} aria-label="Toggle sidebar">
+          <button
+            className="dash-sidebar-toggle"
+            onClick={onToggleSidebar}
+            aria-label="Open navigation menu"
+          >
             <Menu size={18} />
           </button>
           <div className="dash-breadcrumb">
             <span>Thulasi</span>
-            <ChevronRight size={13} className="dash-breadcrumb-sep" />
+            <ChevronRight size={12} style={{ color: 'var(--text-muted)' }} />
             <span className="dash-breadcrumb-current">{meta.title}</span>
           </div>
         </div>
 
         <div className="dash-topbar-right">
+          {/* Bell */}
           <button className="topbar-icon-btn" aria-label={`${unread} notifications`}>
             <Bell size={16} />
             {unread > 0 && <span className="topbar-notif-dot" />}
           </button>
 
+          {/* User chip + dropdown */}
           <div
             className="topbar-user-chip"
             tabIndex={0}
@@ -563,22 +585,16 @@ function TopBar({ activePage, user, onLogout, onToggleSidebar }) {
           >
             <div className="topbar-avatar">{initials}</div>
             <span className="topbar-user-name">{user.name.split(' ')[0]}</span>
-            <ChevronRight size={13} style={{ color: 'var(--text-muted)', transform: dropOpen ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+            <span className={`topbar-chevron ${dropOpen ? 'open' : ''}`}>
+              <ChevronDown size={13} />
+            </span>
 
             {dropOpen && (
               <div className="user-dropdown" onMouseDown={e => e.preventDefault()}>
                 <div className="dropdown-header">
                   <div className="dropdown-header-name">{user.name}</div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '3px' }}>
-                    <span style={{
-                      background: 'var(--brand-primary-lt)',
-                      color: 'var(--brand-primary)',
-                      fontSize: '0.65rem',
-                      fontWeight: 700,
-                      padding: '0.1rem 0.45rem',
-                      borderRadius: '3px',
-                      letterSpacing: '0.04em',
-                    }}>{user.designation}</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '4px' }}>
+                    <DesignationBadge label={user.designation} />
                     <div className="dropdown-header-email">{user.email}</div>
                   </div>
                 </div>
@@ -603,15 +619,13 @@ function TopBar({ activePage, user, onLogout, onToggleSidebar }) {
 export default function Dashboard() {
   const { user, logout } = useAuth();
   const navigate         = useNavigate();
-  const [activePage, setActivePage] = useState('home');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const [activePage,  setActivePage]  = useState('home');
+  const [sidebarOpen, setSidebarOpen] = useState(false); // HIDDEN BY DEFAULT
 
   const meta = PAGE_META[activePage] || { title: activePage, subtitle: '' };
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
-  };
+  const handleLogout = () => { logout(); navigate('/'); };
 
   const renderContent = () => {
     if (activePage === 'home')    return <HomePage user={user} setActivePage={setActivePage} />;
@@ -639,7 +653,6 @@ export default function Dashboard() {
         />
 
         <div className="dash-content">
-          {/* Page Title */}
           {activePage !== 'home' && (
             <div className="page-title-row">
               <div>
@@ -648,7 +661,6 @@ export default function Dashboard() {
               </div>
             </div>
           )}
-
           {renderContent()}
         </div>
       </div>
