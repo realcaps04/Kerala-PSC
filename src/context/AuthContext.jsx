@@ -1,11 +1,15 @@
 import { createContext, useContext, useState, useCallback } from 'react';
 
-/* ── Dummy credentials ──────────────────────────────────────────── */
+/* ── Storage key ─────────────────────────────────────────────────── */
+const STORAGE_KEY = 'kpsc_auth_user';
+
+/* ── Dummy credentials ───────────────────────────────────────────── */
 const VALID_CREDENTIALS = {
   userId: 'keralapsclogin@gmail.com',
   password: 'Keralapsc#2026',
   profile: {
-    name: 'Arjun Krishnan',
+    name: 'Edison Biju',
+    designation: 'Developer',
     registrationNo: 'OTR-2024-KL-087642',
     dob: '15-Aug-1998',
     category: 'OBC-NCL',
@@ -13,24 +17,49 @@ const VALID_CREDENTIALS = {
     mobile: '9876543210',
     email: 'keralapsclogin@gmail.com',
     profilePic: null,
-    lastLogin: '08-Jun-2026, 10:32 AM',
+    lastLogin: new Date().toLocaleString('en-IN', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit',
+    }),
   },
 };
 
+/* ── Helpers ─────────────────────────────────────────────────────── */
+function readPersistedUser() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function persistUser(user) {
+  try {
+    if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+    else localStorage.removeItem(STORAGE_KEY);
+  } catch { /* storage unavailable */ }
+}
+
+/* ── Context ─────────────────────────────────────────────────────── */
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  // Initialise from localStorage so refresh keeps the session alive
+  const [user, setUser] = useState(() => readPersistedUser());
   const [loginError, setLoginError] = useState('');
 
   const login = useCallback(async ({ userId, password }) => {
     setLoginError('');
     await new Promise(r => setTimeout(r, 1800)); // simulate network
+
     if (
       userId.trim() === VALID_CREDENTIALS.userId &&
-      password === VALID_CREDENTIALS.password
+      password        === VALID_CREDENTIALS.password
     ) {
-      setUser(VALID_CREDENTIALS.profile);
+      const profile = VALID_CREDENTIALS.profile;
+      setUser(profile);
+      persistUser(profile);           // ← save to localStorage
       return { success: true };
     } else {
       const msg = 'Invalid User ID or Password. Please check your credentials.';
@@ -41,6 +70,7 @@ export function AuthProvider({ children }) {
 
   const logout = useCallback(() => {
     setUser(null);
+    persistUser(null);                // ← clear localStorage
     setLoginError('');
   }, []);
 
